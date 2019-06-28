@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingyun.dao.MeteorMapper">
+  <resultMap id="BaseResultMap" type="com.xingyun.model.Meteor">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="uniqid" jdbcType="INTEGER" property="uniqid" />
+    <id column="staid" jdbcType="VARCHAR" property="staid" />
+    <id column="dt" jdbcType="TIMESTAMP" property="dt" />
+    <result column="pressure" jdbcType="DECIMAL" property="pressure" />
+    <result column="temperature" jdbcType="DECIMAL" property="temperature" />
+    <result column="humidity" jdbcType="DECIMAL" property="humidity" />
+    <result column="rainfall" jdbcType="DECIMAL" property="rainfall" />
+    <result column="windspeed" jdbcType="DECIMAL" property="windspeed" />
+    <result column="winddirect" jdbcType="DECIMAL" property="winddirect" />
+    <result column="solrad" jdbcType="DECIMAL" property="solrad" />
+    <result column="eva" jdbcType="DECIMAL" property="eva" />
+    <result column="cloud" jdbcType="DECIMAL" property="cloud" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingyun.dao.WqlakeMapper">
+  <resultMap id="BaseResultMap" type="com.xingyun.model.Wqlake">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="uniqid" jdbcType="INTEGER" property="uniqid" />
+    <id column="staid" jdbcType="VARCHAR" property="staid" />
+    <id column="dt" jdbcType="TIMESTAMP" property="dt" />
+    <result column="watertemp" jdbcType="DECIMAL" property="watertemp" />
+    <result column="ph" jdbcType="DECIMAL" property="ph" />
+    <result column="dox" jdbcType="DECIMAL" property="dox" />
+    <result column="codmn" jdbcType="DECIMAL" property="codmn" />
+    <result column="codcr" jdbcType="DECIMAL" property="codcr" />
+    <result column="bod5" jdbcType="DECIMAL" property="bod5" />
+    <result column="nh4" jdbcType="DECIMAL" property="nh4" />
+    <result column="tp" jdbcType="DECIMAL" property="tp" />
+    <result column="tn" jdbcType="DECIMAL" property="tn" />
+    <result column="cu" jdbcType="DECIMAL" property="cu" />
+    <result column="zn" jdbcType="DECIMAL" property="zn" />
+    <result column="f" jdbcType="DECIMAL" property="f" />
+    <result column="sa" jdbcType="DECIMAL" property="sa" />
+    <result column="arsenic" jdbcType="DECIMAL" property="arsenic" />
+    <result column="hg" jdbcType="DECIMAL" property="hg" />
+    <result column="cd" jdbcType="DECIMAL" property="cd" />
+    <result column="cr" jdbcType="DECIMAL" property="cr" />
+    <result column="pb" jdbcType="DECIMAL" property="pb" />
+    <result column="cyanide" jdbcType="DECIMAL" property="cyanide" />
+    <result column="vp" jdbcType="DECIMAL" property="vp" />
+    <result column="petroleum" jdbcType="DECIMAL" property="petroleum" />
+    <result column="asurfactant" jdbcType="DECIMAL" property="asurfactant" />
+    <result column="sulphide" jdbcType="DECIMAL" property="sulphide" />
+    <result column="dibg" jdbcType="DECIMAL" property="dibg" />
+    <result column="chla" jdbcType="DECIMAL" property="chla" />
+    <result column="wcond" jdbcType="DECIMAL" property="wcond" />
+    <result column="transp" jdbcType="DECIMAL" property="transp" />
+    <result column="no3_n" jdbcType="DECIMAL" property="no3N" />
+    <result column="po4_p" jdbcType="DECIMAL" property="po4P" />
+    <result column="tss" jdbcType="DECIMAL" property="tss" />
+    <result column="so4" jdbcType="DECIMAL" property="so4" />
+    <result column="chloride" jdbcType="DECIMAL" property="chloride" />
+    <result column="hno3" jdbcType="DECIMAL" property="hno3" />
+    <result column="fe" jdbcType="DECIMAL" property="fe" />
+    <result column="mn" jdbcType="DECIMAL" property="mn" />
+    <result column="toc" jdbcType="DECIMAL" property="toc" />
+    <result column="ftu" jdbcType="DECIMAL" property="ftu" />
+  </resultMap>
+</mapper>

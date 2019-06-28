@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingyun.dao.HyriverMapper">
+  <resultMap id="BaseResultMap" type="com.xingyun.model.Hyriver">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="uniqid" jdbcType="INTEGER" property="uniqid" />
+    <id column="staid" jdbcType="VARCHAR" property="staid" />
+    <id column="dt" jdbcType="TIMESTAMP" property="dt" />
+    <result column="waterlevel" jdbcType="DECIMAL" property="waterlevel" />
+    <result column="discharge" jdbcType="DECIMAL" property="discharge" />
+    <result column="velocity" jdbcType="DECIMAL" property="velocity" />
+  </resultMap>
+</mapper>

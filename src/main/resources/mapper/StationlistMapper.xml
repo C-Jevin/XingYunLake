@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingyun.dao.StationlistMapper">
+  <resultMap id="BaseResultMap" type="com.xingyun.model.Stationlist">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="staid" jdbcType="VARCHAR" property="staid" />
+    <id column="staname" jdbcType="VARCHAR" property="staname" />
+    <id column="datatable" jdbcType="VARCHAR" property="datatable" />
+    <result column="cate" jdbcType="VARCHAR" property="cate" />
+    <result column="startdt" jdbcType="TIMESTAMP" property="startdt" />
+    <result column="enddt" jdbcType="TIMESTAMP" property="enddt" />
+    <result column="lat" jdbcType="DECIMAL" property="lat" />
+    <result column="lon" jdbcType="DECIMAL" property="lon" />
+    <result column="dataresource" jdbcType="VARCHAR" property="dataresource" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingyun.dao.RainMapper">
+  <resultMap id="BaseResultMap" type="com.xingyun.model.Rain">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="uniqid" jdbcType="INTEGER" property="uniqid" />
+    <id column="staid" jdbcType="VARCHAR" property="staid" />
+    <id column="dt" jdbcType="TIMESTAMP" property="dt" />
+    <result column="prep" jdbcType="DECIMAL" property="prep" />
+  </resultMap>
+
+  <select id="findByPrepAndDt" parameterType="Map" resultMap="BaseResultMap">
+    select * from rain
+    <where>
+      <if test="startTime != null and  endTime != null">
+        and dt between #{startTime} and #{endTime}
+      </if>
+    </where>
+  </select>
+</mapper>
