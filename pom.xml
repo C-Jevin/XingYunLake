@@ -6,7 +6,7 @@
 
     <groupId>com.xingyun</groupId>
     <artifactId>XingYunLake</artifactId>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -43,6 +43,11 @@
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>-->
+        <dependency>
+            <groupId>com.thetransactioncompany</groupId>
+            <artifactId>cors-filter</artifactId>
+            <version>1.7</version>
+        </dependency>
         <!--Swagger依赖-->
         <dependency>
             <groupId>io.springfox</groupId>
