@@ -12,9 +12,9 @@ public class SearchCond {
     private List<String> siteId;//站点ID
     //@ApiModelProperty(value = "表名",example = "tb_duanmianwq")
     //private String tbName;//表名
-    @ApiModelProperty(value = "开始时间",example = "2015-01-01",required = false)
+    @ApiModelProperty(value = "开始时间",example = "",required = false)
     private String startTime;//开始时间
-    @ApiModelProperty(value = "结束时间",example = "2015-01-02",required = false)
+    @ApiModelProperty(value = "结束时间",example = "",required = false)
     private String endTime;//结束时间
     @ApiModelProperty(value = "查询年均(Year)、月均(Mon)、日均(Day)或降雨和",example = "Day",required = true)
     private String condition;//查询年均、月均、日均等（Year/Mon/Day）

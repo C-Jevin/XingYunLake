@@ -14,7 +14,9 @@ import tk.mybatis.mapper.entity.Condition;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Api(value = "数据中心", description = "数据中心相关操作 API", position = 100, protocols = "http")
 @RestController
@@ -43,18 +45,11 @@ public class DataCenterController {
             consumes="application/json")
     @PostMapping("/averDate")
     public Result averDataBy(@RequestBody @ApiParam(name="查询条件",value="传入json格式",required=true)SearchCond searchCond){
+        Date sDate = null;
+        Date eDate = null;
+        List<String> dateList = null;
 
         try {
-            //判空
-            if(searchCond.getStartTime().equals("")||searchCond.getEndTime().equals("")){
-                throw new NullPointerException("开始时间和结束时间不能为空！");
-            }
-            Date sDate = DateUtil.getDateFromStr(searchCond.getStartTime(),"yyyy-MM-dd");
-            Date eDate = DateUtil.getDateFromStr(searchCond.getEndTime(),"yyyy-MM-dd");
-            //判断时间大小以及 其他条件判空
-            if(eDate.before(sDate)){
-                throw new Exception("开始时间不能小于结束时间！");
-            }
             if(searchCond.getSiteId().size()==0){
                 throw new NullPointerException("站点ID不能为空！");
             }
@@ -62,13 +57,26 @@ public class DataCenterController {
                 throw new NullPointerException("计算条件不能为空！");
             }
             String cond = searchCond.getCondition();
-            List<String> dateList = AverageDateUtil.splitDate(searchCond);
-            System.err.println("时间范围："+dateList.toString());
+
             //根据ids查询stationList获取对应的表名
             Condition condition = new Condition(Stationlist.class,false,false);
             Example.Criteria criteria = condition.createCriteria();
             criteria.andIn("staid",searchCond.getSiteId());
             List<Stationlist> staList = stationlistService.findByCondition(condition);
+            //判空
+            if(!searchCond.getStartTime().equals("") && !searchCond.getEndTime().equals("")){
+                sDate = DateUtil.getDateFromStr(searchCond.getStartTime(), "yyyy-MM-dd");
+                eDate = DateUtil.getDateFromStr(searchCond.getEndTime(), "yyyy-MM-dd");
+                //判断时间大小以及 其他条件判空
+                if(eDate.before(sDate)){
+                    throw new Exception("开始时间不能小于结束时间！");
+                }else {
+                    dateList = AverageDateUtil.splitDate(searchCond);
+                    System.err.println("时间范围：" + dateList.toString());
+                }
+            }else {
+
+            }
 
             //根据表名、dt时间范围、staid查询对应的平均值
             Condition condition2 ;
@@ -81,7 +89,19 @@ public class DataCenterController {
                     condition2 = new Condition(Hylake.class);
                     Example.Criteria criteria2 = condition2.createCriteria();
                     criteria2.andEqualTo("staid",siteId);
-                    criteria2.andBetween("dt",searchCond.getStartTime(),searchCond.getEndTime());
+                    if(searchCond.getStartTime().equals("")||searchCond.getEndTime().equals("")) {
+                        criteria2.andBetween("dt", stl.getStartdt(), stl.getEnddt());
+                        SearchCond sc = new SearchCond();
+                        sc.setCondition(cond);
+                        System.err.println("表时间："+stl.getStartdt()+"----"+stl.getEnddt());
+                        sc.setStartTime(DateUtil.getStrFromDate(stl.getStartdt(),"yyyy-MM-dd HH:mm:ss"));
+                        sc.setEndTime(DateUtil.getStrFromDate(stl.getEnddt(),"yyyy-MM-dd HH:mm:ss"));
+                        System.err.println("转化后："+sc.getStartTime()+"----"+sc.getEndTime());
+                        dateList = AverageDateUtil.splitDate(sc);
+                        System.err.println("时间范围：" + dateList.toString());
+                    } else{
+                        criteria2.andBetween("dt",searchCond.getStartTime(),searchCond.getEndTime());
+                    }
                     //criteria2.andIn("dt",dateList);
                     List<Hylake> hylakeList = hylakeService.findByCondition(condition2);
                     List<Hylake> resHyLake = hylakeService.averDate(hylakeList,dateList, cond);
@@ -90,7 +110,17 @@ public class DataCenterController {
                     condition2 = new Condition(Hyriver.class);
                     Example.Criteria criteria2 = condition2.createCriteria();
                     criteria2.andEqualTo("staid",siteId);
-                    criteria2.andBetween("dt",searchCond.getStartTime(),searchCond.getEndTime());
+                    if(searchCond.getStartTime().equals("")||searchCond.getEndTime().equals("")) {
+                        criteria2.andBetween("dt", stl.getStartdt(), stl.getEnddt());
+                        SearchCond sc = new SearchCond();
+                        sc.setCondition(cond);
+                        sc.setStartTime(DateUtil.getStrFromDate(stl.getStartdt(),"yyyy-MM-dd HH:mm:ss"));
+                        sc.setEndTime(DateUtil.getStrFromDate(stl.getEnddt(),"yyyy-MM-dd HH:mm:ss"));
+                        dateList = AverageDateUtil.splitDate(sc);
+
+                    } else{
+                        criteria2.andBetween("dt",searchCond.getStartTime(),searchCond.getEndTime());
+                    }
                     List<Hyriver> hyriverList = hyriverService.findByCondition(condition2);
                     List<Hyriver> resHyRiver = hyriverService.averDate(hyriverList,dateList, cond);
                     resList.add(resHyRiver);
@@ -98,7 +128,16 @@ public class DataCenterController {
                     condition2 = new Condition(Meteor.class);
                     Example.Criteria criteria2 = condition2.createCriteria();
                     criteria2.andEqualTo("staid",siteId);
-                    criteria2.andBetween("dt",searchCond.getStartTime(),searchCond.getEndTime());
+                    if(searchCond.getStartTime().equals("")||searchCond.getEndTime().equals("")) {
+                        criteria2.andBetween("dt", stl.getStartdt(), stl.getEnddt());
+                        SearchCond sc = new SearchCond();
+                        sc.setCondition(cond);
+                        sc.setStartTime(DateUtil.getStrFromDate(stl.getStartdt(),"yyyy-MM-dd HH:mm:ss"));
+                        sc.setEndTime(DateUtil.getStrFromDate(stl.getEnddt(),"yyyy-MM-dd HH:mm:ss"));
+                        dateList = AverageDateUtil.splitDate(sc);
+                    } else{
+                        criteria2.andBetween("dt",searchCond.getStartTime(),searchCond.getEndTime());
+                    }
                     List<Meteor> meteorList = meteorService.findByCondition(condition2);
                     List<Meteor> resMeteor = meteorService.averDate(meteorList,dateList, cond);
                     resList.add(resMeteor);
@@ -106,7 +145,16 @@ public class DataCenterController {
                     condition2 = new Condition(Rain.class);
                     Example.Criteria criteria2 = condition2.createCriteria();
                     criteria2.andEqualTo("staid",siteId);
-                    criteria2.andBetween("dt",searchCond.getStartTime(),searchCond.getEndTime());
+                    if(searchCond.getStartTime().equals("")||searchCond.getEndTime().equals("")) {
+                        criteria2.andBetween("dt", stl.getStartdt(), stl.getEnddt());
+                        SearchCond sc = new SearchCond();
+                        sc.setCondition(cond);
+                        sc.setStartTime(DateUtil.getStrFromDate(stl.getStartdt(),"yyyy-MM-dd HH:mm:ss"));
+                        sc.setEndTime(DateUtil.getStrFromDate(stl.getEnddt(),"yyyy-MM-dd HH:mm:ss"));
+                        dateList = AverageDateUtil.splitDate(sc);
+                    } else{
+                        criteria2.andBetween("dt",searchCond.getStartTime(),searchCond.getEndTime());
+                    }
                     List<Rain> rainList = rainService.findByCondition(condition2);
                     List<Rain> resRain = rainService.averDate(rainList,dateList, cond);
                     resList.add(resRain);
@@ -114,7 +162,16 @@ public class DataCenterController {
                     condition2 = new Condition(Wqlake.class);
                     Example.Criteria criteria2 = condition2.createCriteria();
                     criteria2.andEqualTo("staid",siteId);
-                    criteria2.andBetween("dt",searchCond.getStartTime(),searchCond.getEndTime());
+                    if(searchCond.getStartTime().equals("")||searchCond.getEndTime().equals("")) {
+                        criteria2.andBetween("dt", stl.getStartdt(), stl.getEnddt());
+                        SearchCond sc = new SearchCond();
+                        sc.setCondition(cond);
+                        sc.setStartTime(DateUtil.getStrFromDate(stl.getStartdt(),"yyyy-MM-dd HH:mm:ss"));
+                        sc.setEndTime(DateUtil.getStrFromDate(stl.getEnddt(),"yyyy-MM-dd HH:mm:ss"));
+                        dateList = AverageDateUtil.splitDate(sc);
+                    } else{
+                        criteria2.andBetween("dt",searchCond.getStartTime(),searchCond.getEndTime());
+                    }
                     List<Wqlake> wqlakeList = wqlakeService.findByCondition(condition2);
                     List<Wqlake> resWqlake = wqlakeService.averDate(wqlakeList,dateList, cond);
                     resList.add(resWqlake);
@@ -122,7 +179,16 @@ public class DataCenterController {
                     condition2 = new Condition(Wqriver.class);
                     Example.Criteria criteria2 = condition2.createCriteria();
                     criteria2.andEqualTo("staid",siteId);
-                    criteria2.andBetween("dt",searchCond.getStartTime(),searchCond.getEndTime());
+                    if(searchCond.getStartTime().equals("")||searchCond.getEndTime().equals("")) {
+                        criteria2.andBetween("dt", stl.getStartdt(), stl.getEnddt());
+                        SearchCond sc = new SearchCond();
+                        sc.setCondition(cond);
+                        sc.setStartTime(DateUtil.getStrFromDate(stl.getStartdt(),"yyyy-MM-dd HH:mm:ss"));
+                        sc.setEndTime(DateUtil.getStrFromDate(stl.getEnddt(),"yyyy-MM-dd HH:mm:ss"));
+                        dateList = AverageDateUtil.splitDate(sc);
+                    } else{
+                        criteria2.andBetween("dt",searchCond.getStartTime(),searchCond.getEndTime());
+                    }
                     List<Wqriver> wqriverList = wqriverService.findByCondition(condition2);
                     List<Wqriver> resWqriver = wqriverService.averDate(wqriverList,dateList, cond);
                     resList.add(resWqriver);
