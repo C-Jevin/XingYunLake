@@ -212,10 +212,10 @@ public class WqlakeServiceImpl extends AbstractService<Wqlake> implements Wqlake
         Condition condition = new Condition(Wqlake.class,false,false);
         Example.Criteria criteria = condition.createCriteria();
         criteria.andEqualTo("dt",DateUtil.getStrFromDate(new Date(),"yyyy-MM-01"));
-        List<Wqlake> wqriverList = wqlakeMapper.selectByCondition(condition);
+        List<Wqlake> wqlakeList = wqlakeMapper.selectByCondition(condition);
         List<Wqlake> resList = new ArrayList<>();
         try {
-            for (Wqlake wqlake : wqriverList){
+            for (Wqlake wqlake : wqlakeList){
                 if (UseCondOfHyWq.usecond(strCond,type,wqlake)){
                     resList.add(wqlake);
                 }
