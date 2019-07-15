@@ -34,7 +34,7 @@ public class UseCondOfHyWq {
             case "NH4":
                 return CondOfHyWq.NH4.judeCond(type,EmptySentence.judeEmpty(wqlake.getNh4()));
             case "TP_LAKE":
-                return CondOfHyWq.TP_RIVER.judeCond(type,EmptySentence.judeEmpty(wqlake.getTp()));
+                return CondOfHyWq.TP_LAKE.judeCond(type,EmptySentence.judeEmpty(wqlake.getTp()));
             case "TN":
                 return CondOfHyWq.TN.judeCond(type,EmptySentence.judeEmpty(wqlake.getTn()));
         }
