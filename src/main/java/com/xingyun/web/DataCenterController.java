@@ -74,8 +74,6 @@ public class DataCenterController {
                     dateList = AverageDateUtil.splitDate(searchCond);
                     System.err.println("时间范围：" + dateList.toString());
                 }
-            }else {
-
             }
 
             //根据表名、dt时间范围、staid查询对应的平均值
@@ -94,8 +92,8 @@ public class DataCenterController {
                         SearchCond sc = new SearchCond();
                         sc.setCondition(cond);
                         System.err.println("表时间："+stl.getStartdt()+"----"+stl.getEnddt());
-                        sc.setStartTime(DateUtil.getStrFromDate(stl.getStartdt(),"yyyy-MM-dd HH:mm:ss"));
-                        sc.setEndTime(DateUtil.getStrFromDate(stl.getEnddt(),"yyyy-MM-dd HH:mm:ss"));
+                        sc.setStartTime(DateUtil.getStrFromDate(stl.getStartdt(),"yyyy-MM-dd"));
+                        sc.setEndTime(DateUtil.getStrFromDate(stl.getEnddt(),"yyyy-MM-dd"));
                         System.err.println("转化后："+sc.getStartTime()+"----"+sc.getEndTime());
                         dateList = AverageDateUtil.splitDate(sc);
                         System.err.println("时间范围：" + dateList.toString());
@@ -114,8 +112,8 @@ public class DataCenterController {
                         criteria2.andBetween("dt", stl.getStartdt(), stl.getEnddt());
                         SearchCond sc = new SearchCond();
                         sc.setCondition(cond);
-                        sc.setStartTime(DateUtil.getStrFromDate(stl.getStartdt(),"yyyy-MM-dd HH:mm:ss"));
-                        sc.setEndTime(DateUtil.getStrFromDate(stl.getEnddt(),"yyyy-MM-dd HH:mm:ss"));
+                        sc.setStartTime(DateUtil.getStrFromDate(stl.getStartdt(),"yyyy-MM-dd"));
+                        sc.setEndTime(DateUtil.getStrFromDate(stl.getEnddt(),"yyyy-MM-dd"));
                         dateList = AverageDateUtil.splitDate(sc);
 
                     } else{
@@ -132,8 +130,8 @@ public class DataCenterController {
                         criteria2.andBetween("dt", stl.getStartdt(), stl.getEnddt());
                         SearchCond sc = new SearchCond();
                         sc.setCondition(cond);
-                        sc.setStartTime(DateUtil.getStrFromDate(stl.getStartdt(),"yyyy-MM-dd HH:mm:ss"));
-                        sc.setEndTime(DateUtil.getStrFromDate(stl.getEnddt(),"yyyy-MM-dd HH:mm:ss"));
+                        sc.setStartTime(DateUtil.getStrFromDate(stl.getStartdt(),"yyyy-MM-dd"));
+                        sc.setEndTime(DateUtil.getStrFromDate(stl.getEnddt(),"yyyy-MM-dd"));
                         dateList = AverageDateUtil.splitDate(sc);
                     } else{
                         criteria2.andBetween("dt",searchCond.getStartTime(),searchCond.getEndTime());
@@ -149,8 +147,8 @@ public class DataCenterController {
                         criteria2.andBetween("dt", stl.getStartdt(), stl.getEnddt());
                         SearchCond sc = new SearchCond();
                         sc.setCondition(cond);
-                        sc.setStartTime(DateUtil.getStrFromDate(stl.getStartdt(),"yyyy-MM-dd HH:mm:ss"));
-                        sc.setEndTime(DateUtil.getStrFromDate(stl.getEnddt(),"yyyy-MM-dd HH:mm:ss"));
+                        sc.setStartTime(DateUtil.getStrFromDate(stl.getStartdt(),"yyyy-MM-dd"));
+                        sc.setEndTime(DateUtil.getStrFromDate(stl.getEnddt(),"yyyy-MM-dd"));
                         dateList = AverageDateUtil.splitDate(sc);
                     } else{
                         criteria2.andBetween("dt",searchCond.getStartTime(),searchCond.getEndTime());
@@ -163,11 +161,12 @@ public class DataCenterController {
                     Example.Criteria criteria2 = condition2.createCriteria();
                     criteria2.andEqualTo("staid",siteId);
                     if(searchCond.getStartTime().equals("")||searchCond.getEndTime().equals("")) {
+                        System.err.println("表时间="+stl.getStartdt()+stl.getEnddt());
                         criteria2.andBetween("dt", stl.getStartdt(), stl.getEnddt());
                         SearchCond sc = new SearchCond();
                         sc.setCondition(cond);
-                        sc.setStartTime(DateUtil.getStrFromDate(stl.getStartdt(),"yyyy-MM-dd HH:mm:ss"));
-                        sc.setEndTime(DateUtil.getStrFromDate(stl.getEnddt(),"yyyy-MM-dd HH:mm:ss"));
+                        sc.setStartTime(DateUtil.getStrFromDate(stl.getStartdt(),"yyyy-MM-dd"));
+                        sc.setEndTime(DateUtil.getStrFromDate(stl.getEnddt(),"yyyy-MM-dd"));
                         dateList = AverageDateUtil.splitDate(sc);
                     } else{
                         criteria2.andBetween("dt",searchCond.getStartTime(),searchCond.getEndTime());
@@ -183,8 +182,8 @@ public class DataCenterController {
                         criteria2.andBetween("dt", stl.getStartdt(), stl.getEnddt());
                         SearchCond sc = new SearchCond();
                         sc.setCondition(cond);
-                        sc.setStartTime(DateUtil.getStrFromDate(stl.getStartdt(),"yyyy-MM-dd HH:mm:ss"));
-                        sc.setEndTime(DateUtil.getStrFromDate(stl.getEnddt(),"yyyy-MM-dd HH:mm:ss"));
+                        sc.setStartTime(DateUtil.getStrFromDate(stl.getStartdt(),"yyyy-MM-dd"));
+                        sc.setEndTime(DateUtil.getStrFromDate(stl.getEnddt(),"yyyy-MM-dd"));
                         dateList = AverageDateUtil.splitDate(sc);
                     } else{
                         criteria2.andBetween("dt",searchCond.getStartTime(),searchCond.getEndTime());
